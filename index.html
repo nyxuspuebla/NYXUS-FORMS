@@ -3,26 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NYXUS Store — Programa de Embajadores</title>
+<title>Nyxus Store — Programa de Embajadores</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #f0ece6;
     --cream-dark: #e8e3db;
-    --cream-mid: #ddd8d0;
+    --cream-mid: #c8c2ba;
     --red: #8b1a1a;
     --red-light: #a82020;
     --red-dim: #c4706f;
     --red-pale: #f5e8e8;
-    --ink: #1c1412;
-    --ink-mid: #4a3f3a;
-    --ink-light: #8a7f7a;
-    --ink-faint: #bdb5b0;
+    --ink: #0d0d0d;
+    --ink-mid: #2a2a2a;
+    --ink-light: #4a4a4a;
+    --ink-faint: #888888;
     --white: #faf8f5;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -31,7 +30,6 @@
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     min-height: 100vh;
-    cursor: default;
   }
 
   ::-webkit-scrollbar { width: 3px; }
@@ -39,197 +37,96 @@
   ::-webkit-scrollbar-thumb { background: var(--red-dim); }
   ::selection { background: var(--red-pale); color: var(--red); }
 
-  /* PROGRESS */
-  #progress-bar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-    height: 2px; background: var(--cream-dark);
-  }
-  #progress-fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--red), var(--red-light));
-    transition: width 0.6s ease;
-  }
+  #progress-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 2px; background: var(--cream-dark); }
+  #progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--red), var(--red-light)); transition: width 0.6s ease; }
 
-  /* SCREENS */
   .screen { display: none; min-height: 100vh; }
   .screen.active { display: flex; flex-direction: column; }
+
+  /* LOGO SVG */
+  .nyxus-logo {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 48px;
+  }
+  .logo-svg-wrap { display: flex; align-items: center; }
 
   /* INTRO */
   #screen-intro {
     align-items: center; justify-content: center;
-    padding: 80px 40px;
-    position: relative; overflow: hidden;
+    padding: 80px 40px; position: relative; overflow: hidden;
   }
   #screen-intro::before {
-    content: '';
-    position: absolute; top: -100px; right: -100px;
-    width: 400px; height: 400px;
-    border-radius: 50%;
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
     background: radial-gradient(circle, rgba(139,26,26,0.06) 0%, transparent 70%);
     pointer-events: none;
   }
-  #screen-intro::after {
-    content: '';
-    position: absolute; bottom: -80px; left: -80px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,26,26,0.04) 0%, transparent 70%);
-    pointer-events: none;
-  }
 
-  .intro-inner {
-    max-width: 580px; width: 100%;
-    animation: fadeUp 0.8s ease both;
-  }
+  .intro-inner { max-width: 580px; width: 100%; animation: fadeUp 0.8s ease both; }
 
-  .intro-tag {
-    display: flex; align-items: center; gap: 14px;
-    margin-bottom: 48px;
-  }
+  .intro-tag { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; }
   .intro-tag-line { width: 36px; height: 1px; background: var(--red-dim); }
-  .intro-tag span {
-    font-size: 10px; letter-spacing: 0.3em; color: var(--red-dim);
-    font-weight: 400; text-transform: uppercase;
-  }
+  .intro-tag span { font-size: 10px; letter-spacing: 0.3em; color: var(--red-dim); font-weight: 400; text-transform: uppercase; }
 
   .intro-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(52px, 9vw, 88px);
-    line-height: 0.95;
-    color: var(--ink);
-    margin-bottom: 36px;
-    letter-spacing: -0.02em;
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(52px, 9vw, 88px); line-height: 0.95;
+    color: var(--ink); margin-bottom: 36px; letter-spacing: -0.02em;
   }
-  .intro-title em {
-    font-style: italic;
-    color: var(--red);
-  }
+  .intro-title em { font-style: italic; color: var(--red); }
 
-  .intro-divider {
-    width: 1px; height: 56px;
-    background: linear-gradient(to bottom, var(--red-dim), transparent);
-    margin-bottom: 36px;
-  }
+  .intro-divider { width: 1px; height: 56px; background: linear-gradient(to bottom, var(--red-dim), transparent); margin-bottom: 36px; }
 
-  .intro-lead {
-    font-size: 14px; line-height: 1.9; color: var(--ink-mid);
-    letter-spacing: 0.06em; margin-bottom: 20px;
-  }
-  .intro-body {
-    font-size: 12px; line-height: 2; color: var(--ink-light);
-    letter-spacing: 0.05em; margin-bottom: 52px;
-  }
+  .intro-lead { font-size: 14px; line-height: 1.9; color: var(--ink-mid); letter-spacing: 0.04em; margin-bottom: 20px; font-weight: 400; }
+  .intro-body { font-size: 12px; line-height: 2; color: var(--ink-light); letter-spacing: 0.04em; margin-bottom: 52px; }
 
-  /* SECTION SCREEN */
-  .section-screen {
-    max-width: 640px; margin: 0 auto; width: 100%;
-    padding: 80px 40px 120px;
-  }
+  /* SECTION */
+  .section-screen { max-width: 640px; margin: 0 auto; width: 100%; padding: 80px 40px 120px; }
 
-  .section-meta {
-    margin-bottom: 52px;
-    animation: fadeUp 0.5s ease both;
-  }
-  .section-counter {
-    font-size: 10px; letter-spacing: 0.3em; color: var(--red-dim);
-    text-transform: uppercase; margin-bottom: 14px; display: block;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(26px, 5vw, 40px);
-    color: var(--ink); margin-bottom: 10px;
-    letter-spacing: -0.01em; line-height: 1.1;
-  }
-  .section-sub {
-    font-size: 12px; color: var(--ink-faint);
-    letter-spacing: 0.08em; line-height: 1.8;
-  }
-  .section-rule {
-    width: 36px; height: 1px;
-    background: var(--red-dim); margin-top: 20px;
-  }
+  .section-meta { margin-bottom: 52px; animation: fadeUp 0.5s ease both; }
+  .section-counter { font-size: 10px; letter-spacing: 0.3em; color: var(--red-dim); text-transform: uppercase; margin-bottom: 14px; display: block; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(26px, 5vw, 40px); color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; line-height: 1.1; }
+  .section-sub { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.06em; line-height: 1.8; }
+  .section-rule { width: 36px; height: 1px; background: var(--red-dim); margin-top: 20px; }
 
   /* FIELDS */
   .fields { display: flex; flex-direction: column; gap: 40px; }
-
   .field { animation: fadeUp 0.5s ease both; }
 
-  .field-label {
-    display: block;
-    font-size: 11px; letter-spacing: 0.14em; color: var(--ink-light);
-    text-transform: uppercase; margin-bottom: 10px; line-height: 1.6;
-  }
+  .field-label { display: block; font-size: 11px; letter-spacing: 0.12em; color: var(--ink-light); text-transform: uppercase; margin-bottom: 10px; line-height: 1.6; font-weight: 400; }
   .field-label .req { color: var(--red-dim); margin-left: 3px; }
-  .field-label.error { color: var(--red); }
 
   .field-input {
     width: 100%; background: transparent; border: none; outline: none;
-    border-bottom: 1px solid var(--cream-mid);
-    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cream-mid); padding-bottom: 10px;
     font-family: 'DM Sans', sans-serif; font-weight: 300;
-    font-size: 13px; color: var(--ink); letter-spacing: 0.04em;
-    caret-color: var(--red);
-    transition: border-color 0.25s;
+    font-size: 13px; color: var(--ink); letter-spacing: 0.03em;
+    caret-color: var(--red); transition: border-color 0.25s;
   }
   .field-input:focus { border-bottom-color: var(--red-dim); }
   .field-input.has-value { border-bottom-color: var(--red-dim); }
   .field-input::placeholder { color: var(--ink-faint); }
-
   textarea.field-input { resize: none; line-height: 1.9; min-height: 100px; }
 
-  .field-error {
-    font-size: 11px; color: var(--red); letter-spacing: 0.08em;
-    margin-top: 6px; display: none;
-  }
+  .field-error { font-size: 11px; color: var(--red); letter-spacing: 0.08em; margin-top: 6px; display: none; }
   .field-error.show { display: block; }
 
-  /* RADIO & CHECKBOX */
-  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
-
-  .opt-item {
-    display: flex; align-items: center; gap: 14px;
-    cursor: pointer; padding: 8px 0;
-  }
-  .opt-box {
-    width: 18px; height: 18px; flex-shrink: 0;
-    border: 1px solid var(--cream-mid);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; background: transparent;
-  }
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .opt-item { display: flex; align-items: center; gap: 14px; cursor: pointer; padding: 8px 0; }
+  .opt-box { width: 18px; height: 18px; flex-shrink: 0; border: 1px solid var(--cream-mid); display: flex; align-items: center; justify-content: center; transition: all 0.2s; background: transparent; }
   .opt-box.circle { border-radius: 50%; }
-  .opt-box.checked {
-    border-color: var(--red);
-    background: var(--red);
-  }
-  .opt-box .check-inner-circle {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--white); display: none;
-  }
+  .opt-box.checked { border-color: var(--red); background: var(--red); }
+  .opt-box .check-inner-circle { width: 7px; height: 7px; border-radius: 50%; background: var(--white); display: none; }
   .opt-box.circle.checked .check-inner-circle { display: block; }
   .opt-box .check-svg { display: none; }
   .opt-box.square.checked .check-svg { display: block; }
-
-  .opt-label {
-    font-size: 13px; color: var(--ink-light);
-    letter-spacing: 0.04em; transition: color 0.2s;
-  }
-  .opt-item:hover .opt-label { color: var(--ink-mid); }
-  .opt-item.selected .opt-label { color: var(--ink); }
+  .opt-label { font-size: 13px; color: var(--ink-light); letter-spacing: 0.03em; transition: color 0.2s; }
+  .opt-item.selected .opt-label { color: var(--ink); font-weight: 400; }
 
   /* SCALE */
   .scale-wrap { margin-top: 4px; }
   .scale-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-  .scale-btn {
-    width: 40px; height: 40px;
-    border: 1px solid var(--cream-mid);
-    background: transparent; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-weight: 300;
-    font-size: 13px; color: var(--ink-light);
-    letter-spacing: 0.04em;
-    transition: all 0.2s;
-  }
+  .scale-btn { width: 40px; height: 40px; border: 1px solid var(--cream-mid); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 13px; color: var(--ink-light); transition: all 0.2s; }
   .scale-btn:hover { border-color: var(--red-dim); color: var(--ink); }
   .scale-btn.selected { background: var(--red); border-color: var(--red); color: var(--white); }
   .scale-labels { display: flex; justify-content: space-between; }
@@ -237,100 +134,43 @@
   .scale-label.right { text-align: right; }
 
   /* ACCEPT */
-  .accept-wrap {
-    display: flex; align-items: flex-start; gap: 14px;
-    cursor: pointer; padding: 20px; margin-top: 4px;
-    background: var(--cream-dark); border: 1px solid var(--cream-mid);
-    transition: border-color 0.2s;
-  }
+  .accept-wrap { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; padding: 20px; margin-top: 4px; background: var(--cream-dark); border: 1px solid var(--cream-mid); transition: border-color 0.2s; }
   .accept-wrap:hover { border-color: var(--red-dim); }
   .accept-wrap.checked { border-color: var(--red-dim); background: var(--red-pale); }
-  .accept-box {
-    width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;
-    border: 1px solid var(--cream-mid);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-  }
+  .accept-box { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; border: 1px solid var(--cream-mid); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .accept-wrap.checked .accept-box { background: var(--red); border-color: var(--red); }
-  .accept-text {
-    font-size: 12px; color: var(--ink-light);
-    letter-spacing: 0.05em; line-height: 1.8;
-  }
+  .accept-text { font-size: 12px; color: var(--ink-light); letter-spacing: 0.04em; line-height: 1.8; }
 
   /* BUTTONS */
-  .btn-primary {
-    background: transparent;
-    border: 1px solid var(--red);
-    color: var(--red);
-    padding: 16px 48px;
-    font-family: 'DM Sans', sans-serif; font-weight: 300;
-    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-    cursor: pointer; transition: all 0.3s;
-  }
+  .btn-primary { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 16px 48px; font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .btn-primary:hover { background: var(--red); color: var(--white); }
-
-  .btn-back {
-    background: transparent; border: none;
-    color: var(--ink-faint);
-    font-family: 'DM Sans', sans-serif; font-weight: 300;
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    cursor: pointer; padding: 12px 0; transition: color 0.2s;
-  }
+  .btn-back { background: transparent; border: none; color: var(--ink-faint); font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 12px 0; transition: color 0.2s; }
   .btn-back:hover { color: var(--ink-mid); }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 68px; padding-top: 36px; border-top: 1px solid var(--cream-mid); }
 
-  .nav-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 68px; padding-top: 36px;
-    border-top: 1px solid var(--cream-mid);
-  }
+  /* SENDING STATE */
+  .sending-msg { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.1em; text-align: center; padding: 20px 0; display: none; }
 
   /* THANKS */
-  #screen-thanks {
-    align-items: center; justify-content: center;
-    padding: 80px 40px; text-align: center;
-  }
+  #screen-thanks { align-items: center; justify-content: center; padding: 80px 40px; text-align: center; }
   .thanks-inner { max-width: 480px; animation: fadeUp 0.8s ease both; }
-  .thanks-line-top {
-    width: 1px; height: 72px;
-    background: linear-gradient(to bottom, transparent, var(--red-dim));
-    margin: 0 auto 44px;
-  }
-  .thanks-tag {
-    font-size: 10px; letter-spacing: 0.35em; color: var(--red-dim);
-    text-transform: uppercase; display: block; margin-bottom: 28px;
-  }
-  .thanks-title {
-    font-family: 'Cormorant Garamond', serif; font-weight: 300;
-    font-size: clamp(38px, 7vw, 62px);
-    color: var(--ink); line-height: 1.05; margin-bottom: 36px;
-  }
+  .thanks-line-top { width: 1px; height: 72px; background: linear-gradient(to bottom, transparent, var(--red-dim)); margin: 0 auto 44px; }
+  .thanks-tag { font-size: 10px; letter-spacing: 0.35em; color: var(--red-dim); text-transform: uppercase; display: block; margin-bottom: 28px; }
+  .thanks-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(38px, 7vw, 62px); color: var(--ink); line-height: 1.05; margin-bottom: 36px; }
   .thanks-title em { font-style: italic; color: var(--red); }
-  .thanks-body {
-    font-size: 13px; color: var(--ink-light);
-    letter-spacing: 0.06em; line-height: 2; margin-bottom: 44px;
-  }
+  .thanks-body { font-size: 13px; color: var(--ink-light); letter-spacing: 0.05em; line-height: 2; margin-bottom: 44px; }
   .thanks-rule { width: 36px; height: 1px; background: var(--red-dim); margin: 0 auto 32px; }
-  .thanks-brand {
-    font-size: 10px; letter-spacing: 0.3em; color: var(--red-dim); text-transform: uppercase;
-  }
-  .thanks-line-bot {
-    width: 1px; height: 72px;
-    background: linear-gradient(to bottom, var(--red-dim), transparent);
-    margin: 44px auto 0;
-  }
+  .thanks-brand { font-size: 10px; letter-spacing: 0.3em; color: var(--red-dim); text-transform: uppercase; }
+  .thanks-line-bot { width: 1px; height: 72px; background: linear-gradient(to bottom, var(--red-dim), transparent); margin: 44px auto 0; }
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* MOBILE */
   @media (max-width: 600px) {
     #screen-intro, #screen-thanks { padding: 60px 24px; }
     .section-screen { padding: 60px 24px 100px; }
     .scale-btns { gap: 6px; }
     .scale-btn { width: 34px; height: 34px; font-size: 12px; }
+    .intro-title { font-size: clamp(44px, 12vw, 72px); }
   }
 </style>
 </head>
@@ -341,19 +181,41 @@
 <!-- INTRO -->
 <div id="screen-intro" class="screen active">
   <div class="intro-inner">
+
+    <!-- LOGO -->
+    <div class="nyxus-logo">
+      <svg width="160" height="56" viewBox="0 0 320 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Nyxus script lettering -->
+        <text x="10" y="72" font-family="'Cormorant Garamond', Georgia, serif" font-size="72" font-weight="400" font-style="italic" fill="#8b1a1a" letter-spacing="-2">Nyxus</text>
+        <!-- STORE -->
+        <text x="178" y="98" font-family="'DM Sans', Arial, sans-serif" font-size="18" font-weight="300" fill="#0d0d0d" letter-spacing="6">STORE</text>
+        <!-- Crown -->
+        <g transform="translate(248, 4)">
+          <polyline points="0,22 10,6 20,16 30,2 40,16 50,6 60,22" stroke="#0d0d0d" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <!-- Stars -->
+        <g fill="#8b1a1a">
+          <path d="M18 88 L20 82 L22 88 L28 90 L22 92 L20 98 L18 92 L12 90 Z" opacity="0.8"/>
+          <path d="M290 72 L292 66 L294 72 L300 74 L294 76 L292 82 L290 76 L284 74 Z" opacity="0.7"/>
+          <path d="M304 54 L305.5 50 L307 54 L311 55.5 L307 57 L305.5 61 L304 57 L300 55.5 Z" opacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+
     <div class="intro-tag">
       <div class="intro-tag-line"></div>
       <span>Programa Exclusivo 2025</span>
     </div>
+
     <h1 class="intro-title">
-      Nyxus<br>
-      <em>Embajadores</em>
+      Lujo accesible.<br>
+      <em>Tu momento.</em>
     </h1>
     <div class="intro-divider"></div>
     <p class="intro-lead">Nyxus Store no busca seguidores. Busca personas.</p>
     <p class="intro-body">
-      Este formulario es el primer paso para formar parte del programa exclusivo de embajadores y afiliados de Nyxus Store, una marca digital premium enfocada en maquillaje, perfumes de lujo, moda, accesorios y tecnologia.<br><br>
-      No necesitas miles de seguidores. Necesitas actitud, estetica y ganas reales de crecer. Tomarte el tiempo en cada respuesta marca la diferencia. Solo aceptamos perfiles seleccionados.
+      Este formulario es el primer paso para formar parte del programa exclusivo de embajadores y afiliados de Nyxus Store, una marca digital enfocada en maquillaje, perfumes de lujo, moda, accesorios y tecnologia al alcance de todos.<br><br>
+      No necesitas miles de seguidores. Necesitas actitud, estetica y ganas reales de crecer. Solo aceptamos perfiles seleccionados.
     </p>
     <button class="btn-primary" onclick="goTo('section', 0)">Comenzar solicitud</button>
   </div>
@@ -375,7 +237,7 @@
   </div>
 </div>
 
-<!-- SECTION CONTAINER -->
+<!-- SECTION -->
 <div id="screen-section" class="screen">
   <div class="section-screen">
     <div class="section-meta">
@@ -385,6 +247,7 @@
       <div class="section-rule"></div>
     </div>
     <div class="fields" id="fields-container"></div>
+    <p class="sending-msg" id="sending-msg">Enviando solicitud...</p>
     <div class="nav-row">
       <button class="btn-back" onclick="goBack()">Atras</button>
       <button class="btn-primary" id="btn-next" onclick="goNext()">Continuar</button>
@@ -393,6 +256,8 @@
 </div>
 
 <script>
+const FORMSPREE_URL = 'https://formspree.io/f/maqkzdwq';
+
 const SECTIONS = [
   {
     title: "I. Datos Generales",
@@ -412,32 +277,23 @@ const SECTIONS = [
     title: "II. Presencia Digital",
     sub: "Tu mundo en linea dice mas de ti que cualquier CV.",
     fields: [
-      { id:"red_principal", label:"En que red social eres mas activa o activo", type:"radio", req:true,
-        opts:["Instagram","TikTok","Ambas por igual","Otra"] },
-      { id:"seguidores", label:"Cuantos seguidores tienes en tu red principal", type:"radio", req:true,
-        opts:["Menos de 500","500 a 2K","2K a 10K","10K a 50K","Mas de 50K"] },
-      { id:"frecuencia", label:"Con que frecuencia publicas contenido actualmente", type:"radio", req:true,
-        opts:["Todos los dias","3 a 4 veces por semana","1 a 2 veces por semana","Pocas veces al mes"] },
-      { id:"tipo_contenido", label:"Que tipo de contenido subes normalmente", type:"check", req:true,
-        opts:["Lifestyle","Moda y outfits","Maquillaje y belleza","Resenas de productos","Humor","Motivacional","Otro"] },
-      { id:"colaboraciones", label:"Has colaborado con alguna marca antes", type:"radio", req:true,
-        opts:["Si, con varias marcas","Si, con una marca","No, pero me interesa","No, prefiero empezar desde cero"] },
+      { id:"red_principal", label:"En que red social eres mas activa o activo", type:"radio", req:true, opts:["Instagram","TikTok","Ambas por igual","Otra"] },
+      { id:"seguidores", label:"Cuantos seguidores tienes en tu red principal", type:"radio", req:true, opts:["Menos de 500","500 a 2K","2K a 10K","10K a 50K","Mas de 50K"] },
+      { id:"frecuencia", label:"Con que frecuencia publicas contenido actualmente", type:"radio", req:true, opts:["Todos los dias","3 a 4 veces por semana","1 a 2 veces por semana","Pocas veces al mes"] },
+      { id:"tipo_contenido", label:"Que tipo de contenido subes normalmente", type:"check", req:true, opts:["Lifestyle","Moda y outfits","Maquillaje y belleza","Resenas de productos","Humor","Motivacional","Otro"] },
+      { id:"colaboraciones", label:"Has colaborado con alguna marca antes", type:"radio", req:true, opts:["Si, con varias marcas","Si, con una marca","No, pero me interesa","No, prefiero empezar desde cero"] },
       { id:"marcas_previas", label:"Si has colaborado, con que marcas fue (opcional)", type:"text", req:false },
-      { id:"exp_ventas", label:"Tienes experiencia en ventas, afiliados o recomendando productos", type:"radio", req:true,
-        opts:["Si, tengo experiencia en ventas","Si, he sido afiliada o afiliado","Solo recomendando a conocidos","No, pero aprendo rapido"] },
+      { id:"exp_ventas", label:"Tienes experiencia en ventas, afiliados o recomendando productos", type:"radio", req:true, opts:["Si, tengo experiencia en ventas","Si, he sido afiliada o afiliado","Solo recomendando a conocidos","No, pero aprendo rapido"] },
     ]
   },
   {
     title: "III. Contenido e Imagen",
     sub: "Tu estetica es tu marca. Queremos entender tu vision.",
     fields: [
-      { id:"estetica", label:"Como describirias tu estetica o estilo visual", type:"radio", req:true,
-        opts:["Minimalista y elegante","Dark y misterioso","Colorido y expresivo","Neutral y clean","Lifestyle aspiracional","Mezcla de varios"] },
+      { id:"estetica", label:"Como describirias tu estetica o estilo visual", type:"radio", req:true, opts:["Minimalista y elegante","Dark y misterioso","Colorido y expresivo","Neutral y clean","Lifestyle aspiracional","Mezcla de varios"] },
       { id:"estilo_personal", label:"Describenos tu estilo personal con tus propias palabras", type:"textarea", req:true },
-      { id:"camara", label:"Que tan comoda o comodo te sientes grabando y apareciendo en contenido", type:"scale", req:true,
-        min:1, max:5, minLabel:"Muy timida o timido", maxLabel:"Me encanta estar frente a la camara" },
-      { id:"equipo", label:"Con que equipo cuentas para crear contenido", type:"check", req:false,
-        opts:["Camara o celular de buena calidad","Ring light o iluminacion","Tripode","Aplicaciones de edicion","Solo tengo mi celular"] },
+      { id:"camara", label:"Que tan comoda o comodo te sientes grabando y apareciendo en contenido", type:"scale", req:true, min:1, max:5, minLabel:"Muy timida o timido", maxLabel:"Me encanta estar frente a la camara" },
+      { id:"equipo", label:"Con que equipo cuentas para crear contenido", type:"check", req:false, opts:["Camara o celular de buena calidad","Ring light o iluminacion","Tripode","Aplicaciones de edicion","Solo tengo mi celular"] },
       { id:"link_perfil", label:"Comparte el link de tu Instagram o TikTok principal", type:"text", req:true },
       { id:"aporte", label:"Que crees que podrias aportar a Nyxus Store como embajadora o embajador", type:"textarea", req:true },
     ]
@@ -446,29 +302,21 @@ const SECTIONS = [
     title: "IV. Compromiso y Disponibilidad",
     sub: "El programa Nyxus es para personas que van en serio.",
     fields: [
-      { id:"horas", label:"Cuantas horas a la semana podrias dedicarle al programa", type:"radio", req:true,
-        opts:["Menos de 3 horas","3 a 5 horas","5 a 10 horas","Mas de 10 horas"] },
-      { id:"constancia", label:"Que tan constante te consideras", type:"scale", req:true,
-        min:1, max:5, minLabel:"Me cuesta mantener el ritmo", maxLabel:"Soy muy constante y disciplinada o disciplinado" },
-      { id:"publicar_regular", label:"Estarias dispuesta o dispuesto a publicar contenido de Nyxus de forma regular", type:"radio", req:true,
-        opts:["Si, sin problema","Si, pero necesito flexibilidad","Depende de los requisitos","No estoy segura o seguro"] },
-      { id:"objetivo", label:"Cual es tu objetivo principal dentro del programa", type:"check", req:true,
-        opts:["Ganar dinero por comisiones","Crecer mi presencia digital","Colaborar con una marca premium","Obtener productos","Desarrollar experiencia en ventas","Todo lo anterior"] },
-      { id:"situacion", label:"Actualmente estudias, trabajas o ambos", type:"radio", req:true,
-        opts:["Solo estudio","Solo trabajo","Ambos","Ninguno"] },
+      { id:"horas", label:"Cuantas horas a la semana podrias dedicarle al programa", type:"radio", req:true, opts:["Menos de 3 horas","3 a 5 horas","5 a 10 horas","Mas de 10 horas"] },
+      { id:"constancia", label:"Que tan constante te consideras", type:"scale", req:true, min:1, max:5, minLabel:"Me cuesta mantener el ritmo", maxLabel:"Soy muy constante y disciplinada o disciplinado" },
+      { id:"publicar_regular", label:"Estarias dispuesta o dispuesto a publicar contenido de Nyxus de forma regular", type:"radio", req:true, opts:["Si, sin problema","Si, pero necesito flexibilidad","Depende de los requisitos","No estoy segura o seguro"] },
+      { id:"objetivo", label:"Cual es tu objetivo principal dentro del programa", type:"check", req:true, opts:["Ganar dinero por comisiones","Crecer mi presencia digital","Colaborar con una marca premium","Obtener productos","Desarrollar experiencia en ventas","Todo lo anterior"] },
+      { id:"situacion", label:"Actualmente estudias, trabajas o ambos", type:"radio", req:true, opts:["Solo estudio","Solo trabajo","Ambos","Ninguno"] },
     ]
   },
   {
     title: "V. Ventas y Promocion",
     sub: "Nyxus crece con personas que mueven, convencen e inspiran.",
     fields: [
-      { id:"facilidad_venta", label:"Que tan facil se te hace recomendar o convencer a alguien de comprar algo", type:"scale", req:true,
-        min:1, max:5, minLabel:"Me cuesta mucho", maxLabel:"Es algo natural en mi" },
-      { id:"plataformas", label:"En que plataformas crees que tendrias mejores resultados promoviendo Nyxus", type:"check", req:true,
-        opts:["Instagram Stories","Instagram Feed","TikTok","WhatsApp","Grupos o comunidades","Reels","Otra"] },
+      { id:"facilidad_venta", label:"Que tan facil se te hace recomendar o convencer a alguien de comprar algo", type:"scale", req:true, min:1, max:5, minLabel:"Me cuesta mucho", maxLabel:"Es algo natural en mi" },
+      { id:"plataformas", label:"En que plataformas crees que tendrias mejores resultados promoviendo Nyxus", type:"check", req:true, opts:["Instagram Stories","Instagram Feed","TikTok","WhatsApp","Grupos o comunidades","Reels","Otra"] },
       { id:"como_promocionar", label:"Si fueras embajadora o embajador de Nyxus hoy, como lo promocionarias", type:"textarea", req:true },
-      { id:"comisiones", label:"Estarias comoda o comodo trabajando bajo un esquema de comisiones por ventas", type:"radio", req:true,
-        opts:["Si, me motiva","Si, aunque preferiria un sueldo fijo tambien","No estoy segura o seguro","No, prefiero otro modelo"] },
+      { id:"comisiones", label:"Estarias comoda o comodo trabajando bajo un esquema de comisiones por ventas", type:"radio", req:true, opts:["Si, me motiva","Si, aunque preferiria un sueldo fijo tambien","No estoy segura o seguro","No, prefiero otro modelo"] },
     ]
   },
   {
@@ -481,8 +329,7 @@ const SECTIONS = [
       { id:"organizacion", label:"Como te mantienes organizada o organizado con tus compromisos digitales o de trabajo", type:"textarea", req:true },
       { id:"campana", label:"Si pudieras crear una campana para Nyxus con total libertad, que harias", type:"textarea", req:true },
       { id:"descripcion_nyxus", label:"Como describirias a Nyxus a alguien que no la conoce, responde como si ya fueras parte del equipo", type:"textarea", req:true },
-      { id:"afinidad", label:"Que tan alineada o alineado te sientes con una marca de estetica premium, lujo y lifestyle", type:"scale", req:true,
-        min:1, max:10, minLabel:"Para nada alineada o alineado", maxLabel:"Completamente alineada o alineado" },
+      { id:"afinidad", label:"Que tan alineada o alineado te sientes con una marca de estetica premium, lujo y lifestyle", type:"scale", req:true, min:1, max:10, minLabel:"Para nada alineada o alineado", maxLabel:"Completamente alineada o alineado" },
     ]
   },
   {
@@ -490,8 +337,7 @@ const SECTIONS = [
     sub: "Ultimo paso. Gracias por llegar hasta aqui.",
     fields: [
       { id:"adicional", label:"Hay algo mas que quieras contarnos sobre ti que no haya sido preguntado (opcional)", type:"textarea", req:false },
-      { id:"como_conociste", label:"Como te enteraste del programa de embajadores de Nyxus Store", type:"radio", req:true,
-        opts:["Instagram","TikTok","Un amigo o amiga","WhatsApp","Otro"] },
+      { id:"como_conociste", label:"Como te enteraste del programa de embajadores de Nyxus Store", type:"radio", req:true, opts:["Instagram","TikTok","Un amigo o amiga","WhatsApp","Otro"] },
       { id:"autorizacion", label:"Acepto que Nyxus Store puede revisar mis perfiles publicos en redes sociales como parte del proceso de seleccion, y confirmo que la informacion proporcionada es veridica.", type:"accept", req:true },
     ]
   }
@@ -528,6 +374,7 @@ function renderSection() {
   document.getElementById('section-title').textContent = sec.title;
   document.getElementById('section-sub').textContent = sec.sub;
   document.getElementById('btn-next').textContent = currentSection === SECTIONS.length - 1 ? 'Enviar solicitud' : 'Continuar';
+  document.getElementById('sending-msg').style.display = 'none';
 
   const container = document.getElementById('fields-container');
   container.innerHTML = '';
@@ -549,10 +396,7 @@ function renderSection() {
       inp.placeholder = f.placeholder || '';
       inp.value = answers[f.id] || '';
       if (inp.value) inp.classList.add('has-value');
-      inp.addEventListener('input', e => {
-        answers[f.id] = e.target.value;
-        e.target.classList.toggle('has-value', !!e.target.value);
-      });
+      inp.addEventListener('input', e => { answers[f.id] = e.target.value; e.target.classList.toggle('has-value', !!e.target.value); });
       wrap.appendChild(inp);
 
     } else if (f.type === 'textarea') {
@@ -560,10 +404,7 @@ function renderSection() {
       ta.id = f.id; ta.className = 'field-input'; ta.rows = 4;
       ta.value = answers[f.id] || '';
       if (ta.value) ta.classList.add('has-value');
-      ta.addEventListener('input', e => {
-        answers[f.id] = e.target.value;
-        e.target.classList.toggle('has-value', !!e.target.value);
-      });
+      ta.addEventListener('input', e => { answers[f.id] = e.target.value; e.target.classList.toggle('has-value', !!e.target.value); });
       wrap.appendChild(ta);
 
     } else if (f.type === 'radio') {
@@ -574,11 +415,9 @@ function renderSection() {
         item.className = 'opt-item' + (answers[f.id] === opt ? ' selected' : '');
         const box = document.createElement('div');
         box.className = 'opt-box circle' + (answers[f.id] === opt ? ' checked' : '');
-        const inner = document.createElement('div');
-        inner.className = 'check-inner-circle';
+        const inner = document.createElement('div'); inner.className = 'check-inner-circle';
         box.appendChild(inner);
-        const lbl = document.createElement('span');
-        lbl.className = 'opt-label'; lbl.textContent = opt;
+        const lbl = document.createElement('span'); lbl.className = 'opt-label'; lbl.textContent = opt;
         item.appendChild(box); item.appendChild(lbl);
         item.addEventListener('click', () => {
           answers[f.id] = opt;
@@ -592,8 +431,7 @@ function renderSection() {
 
     } else if (f.type === 'check') {
       if (!answers[f.id]) answers[f.id] = [];
-      const optWrap = document.createElement('div');
-      optWrap.className = 'options';
+      const optWrap = document.createElement('div'); optWrap.className = 'options';
       f.opts.forEach(opt => {
         const item = document.createElement('div');
         const isChecked = answers[f.id].includes(opt);
@@ -601,16 +439,11 @@ function renderSection() {
         const box = document.createElement('div');
         box.className = 'opt-box square' + (isChecked ? ' checked' : '');
         const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-        svg.setAttribute('width','10'); svg.setAttribute('height','8');
-        svg.setAttribute('viewBox','0 0 10 8'); svg.setAttribute('fill','none');
-        svg.className = 'check-svg';
+        svg.setAttribute('width','10'); svg.setAttribute('height','8'); svg.setAttribute('viewBox','0 0 10 8'); svg.setAttribute('fill','none'); svg.className = 'check-svg';
         const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-        path.setAttribute('d','M1 4L3.5 6.5L9 1');
-        path.setAttribute('stroke','#faf8f5'); path.setAttribute('stroke-width','1.5');
-        path.setAttribute('stroke-linecap','round'); path.setAttribute('stroke-linejoin','round');
+        path.setAttribute('d','M1 4L3.5 6.5L9 1'); path.setAttribute('stroke','#faf8f5'); path.setAttribute('stroke-width','1.5'); path.setAttribute('stroke-linecap','round'); path.setAttribute('stroke-linejoin','round');
         svg.appendChild(path); box.appendChild(svg);
-        const lbl = document.createElement('span');
-        lbl.className = 'opt-label'; lbl.textContent = opt;
+        const lbl = document.createElement('span'); lbl.className = 'opt-label'; lbl.textContent = opt;
         item.appendChild(box); item.appendChild(lbl);
         item.addEventListener('click', () => {
           const idx = answers[f.id].indexOf(opt);
@@ -622,23 +455,16 @@ function renderSection() {
       wrap.appendChild(optWrap);
 
     } else if (f.type === 'scale') {
-      const scaleWrap = document.createElement('div');
-      scaleWrap.className = 'scale-wrap';
-      const btnsRow = document.createElement('div');
-      btnsRow.className = 'scale-btns';
+      const scaleWrap = document.createElement('div'); scaleWrap.className = 'scale-wrap';
+      const btnsRow = document.createElement('div'); btnsRow.className = 'scale-btns';
       for (let n = f.min; n <= f.max; n++) {
         const btn = document.createElement('button');
         btn.className = 'scale-btn' + (answers[f.id] === n ? ' selected' : '');
         btn.textContent = n;
-        btn.addEventListener('click', () => {
-          answers[f.id] = n;
-          btnsRow.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-        });
+        btn.addEventListener('click', () => { answers[f.id] = n; btnsRow.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); });
         btnsRow.appendChild(btn);
       }
-      const labelsRow = document.createElement('div');
-      labelsRow.className = 'scale-labels';
+      const labelsRow = document.createElement('div'); labelsRow.className = 'scale-labels';
       const lMin = document.createElement('span'); lMin.className = 'scale-label'; lMin.textContent = f.minLabel;
       const lMax = document.createElement('span'); lMax.className = 'scale-label right'; lMax.textContent = f.maxLabel;
       labelsRow.appendChild(lMin); labelsRow.appendChild(lMax);
@@ -648,20 +474,14 @@ function renderSection() {
     } else if (f.type === 'accept') {
       const acceptWrap = document.createElement('div');
       acceptWrap.className = 'accept-wrap' + (answers[f.id] ? ' checked' : '');
-      const acceptBox = document.createElement('div');
-      acceptBox.className = 'accept-box';
-      if (answers[f.id]) {
-        acceptBox.innerHTML = '<svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#faf8f5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      }
-      const acceptText = document.createElement('span');
-      acceptText.className = 'accept-text'; acceptText.textContent = f.label;
+      const acceptBox = document.createElement('div'); acceptBox.className = 'accept-box';
+      if (answers[f.id]) acceptBox.innerHTML = '<svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#faf8f5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      const acceptText = document.createElement('span'); acceptText.className = 'accept-text'; acceptText.textContent = f.label;
       acceptWrap.appendChild(acceptBox); acceptWrap.appendChild(acceptText);
       acceptWrap.addEventListener('click', () => {
         answers[f.id] = !answers[f.id];
         acceptWrap.classList.toggle('checked', answers[f.id]);
-        acceptBox.innerHTML = answers[f.id]
-          ? '<svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#faf8f5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-          : '';
+        acceptBox.innerHTML = answers[f.id] ? '<svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#faf8f5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '';
       });
       wrap.appendChild(acceptWrap);
     }
@@ -680,8 +500,6 @@ function validate() {
   sec.fields.forEach(f => {
     if (!f.req) return;
     const errEl = document.getElementById('err-' + f.id);
-    const label = document.querySelector('label[for="' + f.id + '"]') ||
-                  document.querySelector('.field-label');
     let ok = false;
     if (f.type === 'check') ok = answers[f.id] && answers[f.id].length > 0;
     else if (f.type === 'accept') ok = !!answers[f.id];
@@ -693,10 +511,40 @@ function validate() {
   return valid;
 }
 
+async function submitToFormspree() {
+  const btn = document.getElementById('btn-next');
+  const msg = document.getElementById('sending-msg');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  msg.style.display = 'block';
+
+  const payload = {};
+  SECTIONS.forEach(sec => {
+    sec.fields.forEach(f => {
+      if (answers[f.id] !== undefined) {
+        payload[f.label] = Array.isArray(answers[f.id]) ? answers[f.id].join(', ') : answers[f.id];
+      }
+    });
+  });
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) { goTo('thanks'); }
+    else { btn.disabled = false; btn.textContent = 'Enviar solicitud'; msg.style.display = 'none'; alert('Hubo un error al enviar. Intenta de nuevo.'); }
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'Enviar solicitud'; msg.style.display = 'none';
+    alert('Error de conexion. Verifica tu internet e intenta de nuevo.');
+  }
+}
+
 function goNext() {
   if (!validate()) { window.scrollTo({top: 0, behavior:'smooth'}); return; }
   if (currentSection < SECTIONS.length - 1) goTo('section', currentSection + 1);
-  else goTo('thanks');
+  else submitToFormspree();
 }
 
 function goBack() {
